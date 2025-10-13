@@ -22,6 +22,8 @@
   https://www.arduino.cc/en/Tutorial/BuiltInExamples/Blink
 */
 
+//This is Yuxin Huang
+
 // the setup function runs once when you press reset or power the board
 void setup() {
   // initialize digital pin LED_BUILTIN as an output.
@@ -52,3 +54,4 @@ void loop() {
         digitalWrite(A3,LOW);
   }
 }
+
