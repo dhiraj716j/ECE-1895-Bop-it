@@ -19,8 +19,8 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 #define SPEAKER_PIN 10
 
 //MP3 module pins
-#define DF_RX 11
-#define DF_TX 10
+#define DF_RX 6
+#define DF_TX 7
 
 SoftwareSerial mp3Serial(DF_RX, DF_TX);
 DFRobotDFPlayerMini mp3;
@@ -45,7 +45,7 @@ const int ROLL_THRESHOLD = 4;
 // Play MP3
 void playSound(int track){
   mp3.play(track);
-  delay(250);
+  delay(500);
 }
 
 //show text on OLED
@@ -81,21 +81,25 @@ void setup(){
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
   display.clearDisplay();
   display.display();
+  pinMode(A1, INPUT);
+  delay(2); 
+  
 
-  if(!mp3.begin(mp3Serial)){
+if(!mp3.begin(mp3Serial)){
     showText("MP3 ERROR");
     while(true);
   }
-
   showText("SUSHIE CHEF!");
   playSound(1);
 }
 
 void loop(){
   if (gameOver) return;
+  randomSeed(analogRead(A1));
 
-  command = random(0,3); // 0=cut, 1=roll, 2=plate
-
+  command = random(0,19); // 0=cut, 1=roll, 2=plate
+  command = command % 3; 
+  delay(2);
   // Prompts
   if(command == 0){
     showText("CUT!");
